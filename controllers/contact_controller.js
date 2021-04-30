@@ -3,5 +3,5 @@ module.exports.phone = function (req, res) {
 }
 
 module.exports.address = function (req, res) {
-    res.end("<h1>Mahipalpur, rangpuri</h1>")
+    res.end("<h1>Mahipalpur, rangpuri</h1>");
 }
