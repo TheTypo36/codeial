@@ -12,5 +12,4 @@ routes.use('/user', require('./user'));
 routes.use('/contact', require('./contact.js'));
 
 routes.use('/post', require('./post'));
-
 module.exports = routes;
