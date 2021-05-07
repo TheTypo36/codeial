@@ -1,8 +1,28 @@
 const User = require('../models/user')
+const cookieParser = require('cookie-parser');
 module.exports.profile = function (req, res) {
-    res.render('user_profile', {
-        title: "User_profile"
-    });
+    if (req.cookies.user_id) {
+        User.findById(req.cookies.user_id, function (err, user) {
+            if (err) {
+                console.log('err', err);
+                return;
+            }
+            if (user) {
+                return res.render('user_profile.ejs', {
+                    title: "user_profile",
+                    user: user
+                });
+            } else {
+
+                return res.redirect('/user/sign-in');
+            }
+        });
+    } else {
+        return res.redirect('/user/sign-in');
+    }
+    // res.render('user_profile', {
+    //     title: "User_profile"
+    // });
 }
 
 module.exports.signUp = function (req, res) {
@@ -68,4 +88,11 @@ module.exports.createSession = function (req, res) {
         }
     });
 
+}
+module.exports.signOut = function (req, res) {
+    if (req.cookies.user_id) {
+        console.log(req.cookies.user_id);
+        res.cookie('user_id', 11);
+        return res.redirect('/user/sign-in');
+    }
 }

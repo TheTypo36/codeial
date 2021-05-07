@@ -1,2 +1,16 @@
 <link rel="stylesheet" href="/css/user_profile.css" type="text/css">
 <h1> User Profile</h1>
+
+<h1>
+    name: <%= user.name %>
+</h1>
+<h1>
+    email: <%= user.email %>
+</h1>
+
+<form action="/user/sign-out" method="POST">
+    <button type="submit">
+        <i class="fas fa-sign-out-alt"></i>
+        sign out
+    </button>
+</form>
