@@ -6,12 +6,18 @@ module.exports.profile = function (req, res) {
 }
 
 module.exports.signUp = function (req, res) {
+    if (req.isAuthenticated()) {
+        return res.redirect('/user/profile');
+    }
     res.render('user_signup.ejs', {
         title: "codeial | Sign Up"
     });
 }
 
 module.exports.signIn = function (req, res) {
+    if (req.isAuthenticated()) {
+        return res.redirect('/user/profile');
+    }
     res.render('user_signin.ejs', {
         title: "codeail | Sign In"
     });
