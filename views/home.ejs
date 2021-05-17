@@ -1,26 +1,30 @@
 <h1>This is body of home and it is variable.</h1>
 
 <section id="feed-posts">
-    <h4>Post</h4>
-    <form action="/posts/create" id="new-post-form" method="POST">
-        <Textarea name="content" cols="30" rows="3" placeholder="Type Here"></Textarea>
-        <input type="submit" value="Post">
-    </form>
-    <div id="posts-container">
-        <ul>
-            <% for(post of posts) {%>
-                <li>
-                    <p>
-                        <%= post.content %>
-                            <small>
-                                <%= post.user %>
-                            </small>
-                    </p>
+    <% if(locals.user){ %>
 
-                </li>
-                <%}%>
-        </ul>
-    </div>
+        <h4>Post</h4>
+        <form action="/posts/create" id="new-post-form" method="POST">
+            <Textarea name="content" cols="30" rows="3" placeholder="Type Here"></Textarea>
+            <input type="submit" value="Post">
+        </form>
+        <%}%>
+            <div id="posts-container">
+                <ul>
+                    <% for(post of posts) {%>
+                        <li>
+                            <p>
+                                <%= post.content %>
+                                    <br>
+                                    <small>
+                                        <%= post.user.name %>
+                                    </small>
+                            </p>
+
+                        </li>
+                        <%}%>
+                </ul>
+            </div>
 
 
 </section>
