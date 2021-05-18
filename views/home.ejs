@@ -7,6 +7,7 @@
         <form action="/posts/create" id="new-post-form" method="POST">
             <Textarea name="content" cols="30" rows="3" placeholder="Type Here"></Textarea>
             <input type="submit" value="Post">
+
         </form>
         <%}%>
             <div id="posts-container">
@@ -20,6 +21,13 @@
                                         <%= post.user.name %>
                                     </small>
                             </p>
+                            <div class="post-comment">
+                                <form action="/comments/create" method="POST">
+                                    <input type="text" name="content" placeholder="Type comment here">
+                                    <input type="hidden" name="post" value="<%= post._id %>">
+                                    <input type="submit" value="Add Comment">
+                                </form>
+                            </div>
 
                         </li>
                         <%}%>
