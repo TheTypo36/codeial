@@ -5,7 +5,7 @@
 
         <h4>Post</h4>
         <form action="/posts/create" id="new-post-form" method="POST">
-            <Textarea name="content" cols="30" rows="3" placeholder="Type Here"></Textarea>
+            <Textarea name="content" cols="30" rows="3" placeholder="Type Here" required></Textarea>
             <input type="submit" value="Post">
 
         </form>
@@ -24,7 +24,7 @@
                             <div class="post-comment">
                                 <% if (locals.user){%>
                                     <form action="/comments/create" method="POST">
-                                        <input type="text" name="content" placeholder="Type comment here">
+                                        <input type="text" name="content" placeholder="Type comment here" required>
                                         <input type="hidden" name="post" value="<%= post._id %>">
                                         <input type="submit" value="Add Comment">
                                     </form>
