@@ -1,5 +1,6 @@
 const { localsName } = require('ejs');
 const Post = require('../models/post');
+const user = require('../models/user');
 module.exports.home = function (req, res) {
     // res.end("<h1>express is up for codeial</h1>");
     // console.log(req);
@@ -14,9 +15,13 @@ module.exports.home = function (req, res) {
             }
         })
         .exec(function (err, posts) {
-            res.render('home', {
-                title: "Codeial | Home",
-                posts: posts
+            user.find({}, function (err, users) {
+
+                res.render('home', {
+                    title: "Codeial | Home",
+                    posts: posts,
+                    all_users: users
+                });
             });
         }
         );
