@@ -1,3 +1,4 @@
+const { reduceRight } = require('lodash');
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 const { post } = require('../routes/posts');
@@ -14,11 +15,12 @@ module.exports.create = async function (req, res) {
 
             post.comments.push(comment);
             post.save();
+            req.flash('success', "comment created");
             res.redirect('/');
         }
     } catch (err) {
-        console.log('Error', err);
-        return;
+        req.flash('error', err);
+        res.redirect('/');
     }
 
     // Post.findById(req.body.post, function (err, post) {
@@ -55,7 +57,7 @@ module.exports.destroy = async function (req, res) {
             comment.remove();
 
             let post = await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
-
+            req.flash('success', 'comment deleted!');
             return res.redirect('back');
 
         } else {
@@ -63,7 +65,9 @@ module.exports.destroy = async function (req, res) {
 
         }
     } catch (err) {
-        console.log('error', err);
+        req.flash('error', err);
+        return res.redirect('back');
+
     }
     // Comment.findById(req.params.id, function (err, comment) {
 

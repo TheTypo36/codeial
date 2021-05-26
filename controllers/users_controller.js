@@ -3,7 +3,7 @@ module.exports.profile = function (req, res) {
     User.findById(req.params.id, function (err, user) {
 
         res.render('user_profile', {
-            title: "User_profile",
+            title: "User profile",
             profile_user: user
         });
     });
@@ -31,7 +31,7 @@ module.exports.signIn = function (req, res) {
     if (req.isAuthenticated()) {
         return res.redirect('/user/profile');
     }
-    res.render('user_signin.ejs', {
+    res.render('user_signin', {
         title: "codeail | Sign In"
     });
 }
