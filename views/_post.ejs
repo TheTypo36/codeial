@@ -1,33 +1,36 @@
-<li>
-    <% if(locals.user && locals.user.id==post.user.id){ %>
-        <small>
-            <a href="/posts/destroy/<%=post.id%>">
-                X
-            </a>
-        </small>
-        <% } %>
-            <p>
+<li id="post-<%=post._id%>">
+    <p>
+        <% if(locals.user && locals.user.id==post.user.id){ %>
+            <small>
+                <a class="post-delete-button" href="/posts/destroy/<%=post.id%>">
+                    X
+                </a>
+            </small>
+            <% } %>
                 <%= post.content %>
                     <br>
                     <small>
                         <%= post.user.name %>
                     </small>
-            </p>
-            <div class="post-comment">
-                <% if (locals.user){%>
-                    <form action="/comments/create" method="POST">
-                        <input type="text" name="content" placeholder="Type comment here" required>
-                        <input type="hidden" name="post" value="<%= post._id %>">
-                        <input type="submit" value="Add Comment">
-                    </form>
-                    <%}%>
-                        <div class="post-comments-list">
-                            <ul id="post-comment-<%=post._id%>">
-                                <%-include('_comment.ejs') -%>
-                            </ul>
-                        </div>
+    </p>
+    <div class="post-comment">
+        <% if (locals.user){%>
+            <form action="/comments/create" method="POST">
+                <input type="text" name="content" placeholder="Type comment here" required>
+                <input type="hidden" name="post" value="<%= post._id %>">
+                <input type="submit" value="Add Comment">
+            </form>
+            <%}%>
+                <div class="post-comments-list">
+                    <% for (comment of post.comments){%>
 
-            </div>
+                        <%- include('_comment') -%>
+
+
+                            <%} %>
+                </div>
+
+    </div>
 
 
 </li>
