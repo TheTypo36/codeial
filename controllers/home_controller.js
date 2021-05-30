@@ -1,7 +1,8 @@
 const { localsName } = require('ejs');
 const Post = require('../models/post');
 const user = require('../models/user');
-
+const { post } = require('../routes/posts');
+const Comment = require('../routes/comment');
 //using async awaiting for handling the chaining of request
 module.exports.home = async function (req, res) {
     // res.end("<h1>express is up for codeial</h1>");
@@ -15,7 +16,10 @@ module.exports.home = async function (req, res) {
                 path: 'comments',
                 populate: {
                     path: 'user'
-                }
+                },
+
+
+
             });
 
         let users = await user.find({});

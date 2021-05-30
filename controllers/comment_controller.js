@@ -1,20 +1,36 @@
 const { reduceRight } = require('lodash');
+const { find } = require('../models/comment');
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 const { post } = require('../routes/posts');
 
 module.exports.create = async function (req, res) {
     try {
+
         let post = await Post.findById(req.body.post);
         if (post) {
             let comment = await Comment.create({
+
                 content: req.body.content,
                 post: req.body.post,
                 user: req.user._id
             });
 
-            post.comments.push(comment);
+            post.comments.unshift(comment);
+
             post.save();
+
+            if (req.xhr) {
+                return res.status(200).json({
+                    data: {
+                        comment: comment,
+                        username: req.user.name
+                    },
+                    message: 'Comment created'
+                });
+
+            }
+
             req.flash('success', "comment created");
             res.redirect('/');
         }
@@ -57,6 +73,14 @@ module.exports.destroy = async function (req, res) {
             comment.remove();
 
             let post = await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
+            if (req.xhr) {
+                return res.status(200).json({
+                    data: {
+                        comment: req.params.id
+                    },
+                    message: 'comment deleted'
+                });
+            }
             req.flash('success', 'comment deleted!');
             return res.redirect('back');
 
