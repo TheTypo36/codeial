@@ -72,7 +72,14 @@
             });
         });
     }
+    let convertToAjx = function () {
+        let deleteLinks = $('.comment-delete-button');
+        for (deleteLink of deleteLinks) {
+            deleteComment(deleteLink);
+        }
+    };
 
     createComment();
+    convertToAjx();
     // console.log('hello comment');
 }

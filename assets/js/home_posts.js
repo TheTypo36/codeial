@@ -23,9 +23,8 @@
                         layout: 'topRight',
                         timeout: 1500
                     }).show();
-                    deletePost(' .delete-post-button', newPost);
+                    deletePost(' .post-delete-button', newPost);
 
-                    //  console.log(newPost);
                 }, error: function (error) {
                     console.log(error.responseText);
                 }
@@ -69,6 +68,7 @@
     }
 
     let deletePost = function (deleteLink) {
+
         $(deleteLink).click(function (e) {
             e.preventDefault();
             $.ajax({
@@ -92,6 +92,17 @@
 
         });
     }
+    let convertToAjx = function () {
+        console.log('hello convertToAjx');
+        let deleteLinks = $('.post-delete-button');
+        console.log(deleteLinks);
+        for (deleteLink of deleteLinks) {
+
+            deletePost(deleteLink);
+        }
+        //  console.log(newPost);
+    };
 
     createPost();
+    convertToAjx();
 }
