@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/user_profile.css" type="text/css">
 <h1> User Profile</h1>
 
-
+<img src="<%=user.avatar%>" alt="<%=user.name%>" width="300">
 
 <% if(user.id==profile_user.id) {%>
     <form method="POST" action="/user/update/<%=profile_user.id %>" enctype="multipart/form-data">
