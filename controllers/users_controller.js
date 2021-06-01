@@ -8,14 +8,39 @@ module.exports.profile = function (req, res) {
         });
     });
 }
-module.exports.update = function (req, res) {
-    if (req.user.id = req.params.id) {
-        User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
+module.exports.update = async function (req, res) {
+    if (req.user.id == req.params.id) {
+
+        try {
+            let user = await User.findById(req.params.id);
+            User.uploadedAvatar(req, res, function (err) {
+                if (err) {
+                    console.log('error:', err);
+                    return;
+                }
+                // console.log(req.file);
+                user.name = req.body.name;
+                user.email = req.body.email;
+                if (req.file) {
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+                }
+                user.save();
+                return res.redirect('back');
+            });
+        } catch (error) {
+            req.flash('error', err);
             return res.redirect('back');
-        });
+        }
     } else {
-        return res.status(401).send('Unauthorized');
+        return res.status(401).send('Unathorized');
     }
+    // if (req.user.id = req.params.id) {
+    //     User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
+    //         return res.redirect('back');
+    //     });
+    // } else {
+    //     return res.status(401).send('Unauthorized');
+    // }
 }
 
 module.exports.signUp = function (req, res) {

@@ -16,6 +16,9 @@ const flash = require('connect-flash');
 
 const customMware = require('./config/middleware');
 
+//const multer = require('multer');
+
+
 app.use(sassMiddleware({
     src: './assets/scss',
     dest: './assets/css',
