@@ -1,15 +1,19 @@
 <link rel="stylesheet" type="text/css" href="/css/home.css">
-<h1>This is body of home and it is variable.</h1>
+
 
 <div id="home-container">
+    <section id="groups-list" class="mt50x">
 
-    <section id="feed-posts">
+    </section>
+
+    <section id="feed-posts" class="mt50x">
 
         <% if(locals.user){ %>
 
             <h4>Post</h4>
             <form action="/posts/create" id="new-post-form" method="POST">
-                <Textarea name="content" cols="30" rows="3" placeholder="Type Here" required></Textarea>
+                <Textarea name="content" cols="30" rows="3" placeholder="What's on your mind, <%=user.name%>?"
+                    required></Textarea>
                 <input type="submit" value="Post">
 
             </form>
@@ -24,7 +28,7 @@
 
 
     </section>
-    <section id="users-friends">
+    <section id="users-friends" class="mt50x">
         <h4>F.R.I.E.N.D.S</h4>
         <% for(u of all_users) {%>
             <p>
@@ -34,7 +38,7 @@
 
             </p>
             <%}%>
-    </section>d
+    </section>
 </div>
 <script src="/js/home_posts.js" type="text/javascript">
 </script>

@@ -1,10 +1,30 @@
 #home-container {
   display: flex;
+  justify-content: center;
   height: 100%; }
+  #home-container #groups-list {
+    width: 20%;
+    padding: 10px;
+    border-right: 1px solid lightblue; }
   #home-container #feed-posts {
-    width: 70%;
+    width: 60%;
     padding: 10px; }
+    #home-container #feed-posts form {
+      display: flex;
+      flex-direction: column; }
+      #home-container #feed-posts form textarea {
+        width: 100%;
+        box-shadow: 1px 2px 5px 3px lightgrey;
+        border: none;
+        margin-bottom: 5px; }
+      #home-container #feed-posts form textarea::placeholder {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.2rem; }
+      #home-container #feed-posts form input {
+        width: 100px; }
   #home-container #users-friends {
-    width: 30%;
+    width: 20%;
     padding: 10px;
     border-left: 1px solid lightblue; }
+  #home-container .mt50x {
+    margin-top: 50px; }
