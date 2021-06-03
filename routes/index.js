@@ -13,4 +13,5 @@ routes.use('/contact', require('./contact.js'));
 
 routes.use('/posts', require('./posts'));
 routes.use('/comments', require('./comment'));
+routes.use('/api', require('./api'));
 module.exports = routes;
