@@ -3,7 +3,7 @@ const { find } = require('../models/comment');
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 const { post } = require('../routes/posts');
-
+const commentMailer = require('../mailer/comments_mailer');
 module.exports.create = async function (req, res) {
     try {
 
@@ -19,7 +19,8 @@ module.exports.create = async function (req, res) {
             post.comments.unshift(comment);
 
             post.save();
-
+            comment = await comment.populate('user', 'name email').execPopulate();
+            commentMailer.newComment(comment);
             if (req.xhr) {
                 return res.status(200).json({
                     data: {
