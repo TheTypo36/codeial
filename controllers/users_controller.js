@@ -1,7 +1,9 @@
-const User = require('../models/user')
+const User = require('../models/user');
+const resetPasswordToken = require('../models/resetPassword');
+const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
-
+const resetPasswordMailer = require('../mailers/resetPassword');
 module.exports.profile = function (req, res) {
     User.findById(req.params.id, function (err, user) {
 
@@ -103,4 +105,83 @@ module.exports.destroySession = function (req, res) {
     req.flash('success', 'You have been Logged Out');
     return res.redirect('/');
 
+}
+
+//rendering the page for find account
+module.exports.forgotten = function (req, res) {
+    res.render('forgottenPassword.ejs', {
+        title: "Finding Id"
+    });
+}
+
+
+//sending mail for resetting password
+module.exports.recoverEmail = function (req, res) {
+
+    User.findOne({ email: req.query.email }, function (err, user) {
+        if (err) {
+            console.log('error in find the email id: ', err);
+            return;
+        }
+        console.log(user);
+        //creating resetPassword token
+        resetPasswordToken.create({
+            user: user,
+            accessToken: crypto.randomBytes(20).toString('hex'),
+            isValid: true
+
+        }, function (error, resetPasswordToken) {
+
+            resetPasswordMailer.resetPassword(resetPasswordToken);
+        });
+        res.redirect('back');
+    })
+}
+
+//rendering page for resetting password if the tokens is valid
+module.exports.resetPassword = function (req, res) {
+    resetPasswordToken.findOne({ accessToken: req.query.accessToken }, function (error, resetPasswordToken) {
+        if (error) {
+            console.log('ERROR in find token', error);
+            return;
+        }
+        res.render('resetPassword.ejs', {
+            title: "Reset Password",
+            resetPasswordToken: resetPasswordToken
+        });
+    });
+
+}
+
+// action for resetting password 
+module.exports.changePassword = function (req, res) {
+    if (req.body.newPass != req.body.confPass) {
+        console.log('passwords didn\'t  match');
+        return res.redirect('back');
+    }
+
+    // resetPasswordToken.findOne({accessToken: req.query.accessToken},function(err,resetPasswordToken){
+    //     if (error) {
+    //         console.log('ERROR in find token', error);
+    //         return;
+    //     }
+    //     resetPasswordToken.isValid = false;
+
+    //     resetPasswordToken.update( $set{user.password: req.body.newPass})
+    // })
+
+    resetPasswordToken.findOne({ accessToken: req.query.accessToken }).populate('user', 'password').exec(function (error, resetPasswordToken) {
+        if (error) {
+            console.log('ERROR in find token', error);
+            return;
+        }
+
+        resetPasswordToken.isValid = false;
+        resetPasswordToken.user.password = req.body.newPass;
+        resetPasswordToken.save();
+        console.log(resetPasswordToken);
+    });
+
+
+    return res.redirect('/user/sign-in');
 }

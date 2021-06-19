@@ -23,4 +23,18 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 
 router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/user/sign-in' }), userController.createSession);
 
 router.get('/sign-out', userController.destroySession);
+
+//route for page when we enter email for searching the email in the database
+router.get('/forgot-password', userController.forgotten);
+
+
+//routes that find the email and send the link to the email to resetting password
+router.get('/recover', userController.recoverEmail);
+
+//route that open the page for when newpassword is enter
+router.get('/reset-password', userController.resetPassword);
+
+
+//action when new password and confirm password is entered
+router.post('/reset-password', userController.changePassword);
 module.exports = router;
