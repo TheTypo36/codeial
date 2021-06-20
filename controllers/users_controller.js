@@ -153,7 +153,7 @@ module.exports.resetPassword = function (req, res) {
 
 }
 
-// action for resetting password 
+// action for resetting password  
 module.exports.changePassword = function (req, res) {
     if (req.body.newPass != req.body.confPass) {
         console.log('passwords didn\'t  match');
@@ -177,7 +177,14 @@ module.exports.changePassword = function (req, res) {
         }
 
         resetPasswordToken.isValid = false;
-        resetPasswordToken.user.password = req.body.newPass;
+        User.findByIdAndUpdate(resetPasswordToken.user.id, { password: req.body.newPass }, function (error, user) {
+            if (error) {
+                console.log('error in updating the password', error);
+                return;
+            } else {
+                console.log('error updated user', user);
+            }
+        })
         resetPasswordToken.save();
         console.log(resetPasswordToken);
     });
