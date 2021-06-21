@@ -160,15 +160,6 @@ module.exports.changePassword = function (req, res) {
         return res.redirect('back');
     }
 
-    // resetPasswordToken.findOne({accessToken: req.query.accessToken},function(err,resetPasswordToken){
-    //     if (error) {
-    //         console.log('ERROR in find token', error);
-    //         return;
-    //     }
-    //     resetPasswordToken.isValid = false;
-
-    //     resetPasswordToken.update( $set{user.password: req.body.newPass})
-    // })
 
     resetPasswordToken.findOne({ accessToken: req.query.accessToken }).populate('user', 'password').exec(function (error, resetPasswordToken) {
         if (error) {
