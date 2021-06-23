@@ -16,6 +16,8 @@
 
                     let newPost = newPostDom(data.data.post, data.data.username);
                     $('#posts-container>ul').prepend(newPost);
+                    deletePost(' .post-delete-button', newPost);
+                    new ToggleLike($(' .toggle-like-btn', newPost));
                     new Noty({
                         theme: 'relax',
                         type: 'success',
@@ -23,7 +25,6 @@
                         layout: 'topRight',
                         timeout: 1500
                     }).show();
-                    deletePost(' .post-delete-button', newPost);
 
                 }, error: function (error) {
                     console.log(error.responseText);
@@ -46,6 +47,12 @@
                         <br>
                         <small>
                         ${username}
+                        </small>
+                        <br>
+                        <small>
+                            <a class = "toggle-like-btn" data-like="0" href="/likes/toggle?id=${post._id}&type=Post">
+                                0 Likes
+                            </a>
                         </small>
                     </p>
                     <div class="post-comments">

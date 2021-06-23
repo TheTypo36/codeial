@@ -22,7 +22,7 @@ module.exports.toggleLikes = async function (req, res) {
         });
 
         if (existingLike) {
-            likeable.likes.pull(existingLike.id);
+            likeable.likes.pull(existingLike._id);
             likeable.save();
 
             existingLike.remove();
@@ -34,10 +34,13 @@ module.exports.toggleLikes = async function (req, res) {
                 onModel: req.query.type
             });
             likeable.likes.push(newlike._id);
+            likeable.save();
         }
         return res.json(200, {
             message: "request succesfull",
-            data: deleted
+            data: {
+                deleted: deleted
+            }
         });
     } catch (error) {
         console.log(error);

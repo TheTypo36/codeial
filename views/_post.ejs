@@ -12,31 +12,26 @@
                     <small>
                         <%= post.user.name %>
                     </small>
-                    <div class="like-section">
-                        <a href="/likes/toggle?id=<%=post._id%>&type=Post" id="likeLink">
-
-                            <% if(deleted) {%>
-                                <div class="like-counter">
-                                    0
-                                </div>
-                                <div class="like-image">
-                                    like
-                                </div>
-                                <%}else{%>
-
-                                    <div class="like-counter">
-                                        0
-                                    </div>
-                                    <div class="like-image">
-                                        like
-                                    </div>
+                    <small class="like-section">
 
 
-                                    <%}%>
+                        <% if(locals.user) {%>
+                            <a class="toggle-like-btn" data-like="<%=post.likes.length%>"
+                                href="/likes/toggle?id=<%=post._id%>&type=Post" id="likeLink">
+                                <%=post.likes.length%> Likes
+                            </a>
 
-                        </a>
+                            <%}else{%>
 
-                    </div>
+
+                                <%=post.likes.length%> Likes
+                                    <%=post.likes.length%> Likes
+
+                                        <%}%>
+
+
+
+                    </small>
     </p>
     <div class="post-comment">
         <% if (locals.user){%>
