@@ -1,23 +1,39 @@
 <link rel="stylesheet" href="/css/user_profile.css" type="text/css">
-<h1> User Profile</h1>
+<div>
 
-<img src="<%=user.avatar%>" alt="<%=user.name%>" width="300">
+    <h1> User Profile</h1>
 
-<% if(user.id==profile_user.id) {%>
-    <form method="POST" action="/user/update/<%=profile_user.id %>" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Enter the Name" value="<%=profile_user.name%>">
-        <input type="email" name="email" placeholder="Enter the Email" value="<%=profile_user.email%>">
-        <input type="file" name="avatar" placeholder="Profile Pic">
-        <input type="submit" value="update">
-    </form>
+    <img src="<%=profile_user.avatar%>" alt="<%=user.name%>" width="300">
 
-    <%}else{%>
+    <% if(user.id==profile_user.id) {%>
+        <form method="POST" action="/user/update/<%=profile_user.id %>" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Enter the Name" value="<%=profile_user.name%>">
+            <input type="email" name="email" placeholder="Enter the Email" value="<%=profile_user.email%>">
+            <input type="file" name="avatar" placeholder="Profile Pic">
+            <input type="submit" value="update">
+        </form>
 
-        <h3>
-            <%= profile_user.name %>
-        </h3>
-        <h3>
-            <%= profile_user.email %>
-        </h3>
+        <%}else{%>
 
-        <%}%>
+            <h3>
+                <%= profile_user.name %>
+            </h3>
+            <h3>
+                <%= profile_user.email %>
+            </h3>
+            <small>
+                <a class="toggle-friendship-btn" href="/user/friendship/?to=<%=profile_user.id%>">
+                    add
+                </a>
+            </small>
+            <%}%>
+</div>
+<script src="/js/toggle_friendship.js">
+</script>
+<script>
+    $('.toggle-friendship-btn').each(function () {
+        let self = this;
+        console.log(self);
+        let toggleFriendship = new ToggleFriendship(self);
+    });
+</script>

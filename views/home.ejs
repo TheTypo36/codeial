@@ -28,17 +28,36 @@
 
 
     </section>
-    <section id="users-friends" class="mt50x">
-        <h4>F.R.I.E.N.D.S</h4>
-        <% for(u of all_users) {%>
-            <p>
-                <a href="/user/profile/<%= u.id%>">
-                    <%= u.name %>
-                </a>
+    <aside id="users-friends" class="mt50x">
+        <section id="friend-list">
+            <h4>F.R.I.E.N.D.S</h4>
+            <%if(locals.user){%>
 
-            </p>
-            <%}%>
-    </section>
+                <% for( f of currUser.friendships){%>
+                    <p>
+                        <%if(locals.user.name !=f.to_user.name){%>
+                            <%=f.to_user.name%>
+                                <form action="/user/friendship_destroy/?to=<%=f.to_user.id%>" method="POST">
+                                    <input type="submit" value="x">
+                                </form>
+                                <%}%>
+
+                                    <%}%>
+                    </p>
+                    <%}%>
+        </section>
+        <section id="user-list">
+            <h4>U.S.E.R</h4>
+            <% for(u of all_users) {%>
+                <p>
+                    <a href="/user/profile/<%= u.id%>">
+                        <%= u.name %>
+                    </a>
+
+                </p>
+                <%}%>
+        </section>
+    </aside>
 </div>
 <script src="/js/home_posts.js" type="text/javascript">
 </script>
@@ -48,5 +67,14 @@
     $('.toggle-like-btn').each(function () {
         let self = this;
         let toggleLike = new ToggleLike(self);
+    });
+</script>
+<script src="/js/toggle_friendship.js">
+</script>
+<script>
+    $('.toggle-friendship-btn').each(function () {
+        let self = this;
+        console.log(self);
+        let toggleFriendship = new ToggleFriendship(self);
     });
 </script>

@@ -15,17 +15,18 @@ header{
     padding-right: 50px;
     position: fixed;
     box-shadow: 1px 5px 5px 1px lightgrey;
+    a{
+        color: white;
+        text-decoration: none;
+        font-size: large;
+        font-weight: bold;
+    }   
     #links{
         list-style: none;
         display: flex;
         flex-direction: column;
         
-        a{
-            color: white;
-            text-decoration: none;
-            font-size: large;
-            font-weight: bold;
-        }
+        
     }
 
     

@@ -1,14 +1,15 @@
 #home-container {
   display: flex;
-  justify-content: center;
-  height: 100%; }
+  justify-content: center; }
   #home-container #groups-list {
     width: 20%;
     padding: 10px;
-    border-right: 1px solid lightblue; }
+    border-right: 1px solid lightblue;
+    overflow-y: scroll; }
   #home-container #feed-posts {
     width: 60%;
-    padding: 10px; }
+    padding: 10px;
+    overflow-y: scroll; }
     #home-container #feed-posts form {
       display: flex;
       flex-direction: column; }
@@ -25,6 +26,10 @@
   #home-container #users-friends {
     width: 20%;
     padding: 10px;
-    border-left: 1px solid lightblue; }
+    border-left: 1px solid lightblue;
+    overflow-y: scroll; }
+    #home-container #users-friends #friend-list {
+      height: 20%;
+      border-bottom: 1px solid lightblue; }
   #home-container .mt50x {
     margin-top: 50px; }

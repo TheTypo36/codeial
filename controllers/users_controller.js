@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const resetPasswordMailer = require('../mailers/resetPassword');
+const Friendship = require('../models/friendship');
 module.exports.profile = function (req, res) {
     User.findById(req.params.id, function (err, user) {
 
@@ -182,4 +183,72 @@ module.exports.changePassword = function (req, res) {
 
 
     return res.redirect('/user/sign-in');
+}
+module.exports.friendShip = async function (req, res) {
+    try {
+        console.log("inside friendship controllers");
+        let to_user = await User.findById(req.query.to);
+        let from_user = await User.findById(req.user._id);
+        let deleted = false;
+        console.log(to_user);
+        console.log(from_user);
+        let existingFriendship = await Friendship.findOne({
+            from_user: req.user._id,
+            to_user: req.query.to
+        });
+
+        if (existingFriendship) {
+            to_user.friendships.pull(existingFriendship._id);
+            from_user.friendships.pull(existingFriendship._id);
+
+            to_user.save();
+            from_user.save();
+            existingFriendship.remove();
+
+            deleted = true;
+        } else {
+
+            let newFriendship = await Friendship.create({
+                from_user: from_user,
+                to_user: to_user
+            });
+            to_user.friendships.push(newFriendship);
+            from_user.friendships.push(newFriendship);
+            to_user.save();
+            from_user.save();
+        }
+        return res.status(200).json({
+            message: "friendship is succesfully created!!",
+            data: deleted
+        });
+    } catch (error) {
+        console.log("ERROR******", error);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+}
+
+module.exports.friendshipDestroy = async function (req, res) {
+    try {
+        let to_user = await User.findById(req.query.to);
+        let from_user = await User.findById(req.user._id);
+
+        let existingFriendship = await Friendship.findOne({
+            from_user: req.user._id,
+            to_user: req.query.to
+        });
+        to_user.friendships.pull(existingFriendship._id);
+        from_user.friendships.pull(existingFriendship._id);
+
+        to_user.save();
+        from_user.save();
+        existingFriendship.remove();
+        return res.redirect('back');
+    } catch (error) {
+        console.log("ERROR*****", error);
+        return res.status(500).json({
+            message: "Internal server ERROR"
+        })
+    }
 }

@@ -1,40 +1,54 @@
-#home-container{
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    #groups-list{
-        width: 20%;
-        padding: 10px;
-        border-right: 1px solid lightblue;
-    }
-    #feed-posts{
-        width: 60%;
-        padding: 10px;
-        form{
-            textarea{
-                
-                width: 100%;
-                box-shadow: 1px 2px 5px 3px lightgrey;
-                border: none;
-                margin-bottom: 5px;
-            }
-            textarea::placeholder{
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 1.2rem;
-            }
-            input{
-                width: 100px;
-            }
-            display: flex;
-            flex-direction: column;
+
+    #home-container{
+        display: flex;
+        justify-content: center;
+        
+        #groups-list{
+            width: 20%;
+            padding: 10px;
+            border-right: 1px solid lightblue;
+            overflow-y: scroll;
+    
+    
         }
-    }
-    #users-friends{
-        width: 20%;
-        padding: 10px;
-        border-left: 1px solid lightblue;
-    }
-    .mt50x{
-        margin-top: 50px;
-    }
-}
+        #feed-posts{
+            width: 60%;
+            padding: 10px;
+            overflow-y: scroll;
+            form{
+                textarea{
+                    
+                    width: 100%;
+                    box-shadow: 1px 2px 5px 3px lightgrey;
+                    border: none;
+                    margin-bottom: 5px;
+                }
+                textarea::placeholder{
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 1.2rem;
+                }
+                input{
+                    width: 100px;
+                }
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        #users-friends{
+            width: 20%;
+            padding: 10px;
+            border-left: 1px solid lightblue;
+            overflow-y: scroll;
+            #friend-list{
+                height: 20%;
+                border-bottom: 1px solid lightblue;
+          
+                
+            }
+           
+        }
+        .mt50x{
+            margin-top: 50px;
+        }
+    }  
+

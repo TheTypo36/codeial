@@ -37,4 +37,8 @@ router.get('/reset-password', userController.resetPassword);
 
 //action when new password and confirm password is entered
 router.post('/reset-password', userController.changePassword);
+
+router.post('/friendship', userController.friendShip);
+
+router.post('/friendship_destroy', userController.friendshipDestroy);
 module.exports = router;

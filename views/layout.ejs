@@ -33,32 +33,35 @@
                 </main>
 
                 <%- include('_footer'); %>
-                    <script>
+
+                    <%-script %>
+                        <script>
                             // for the success part
 
                     <% if (flash.success && flash.success.length > 0) {%>
-                            new Noty({
-                                theme: 'relax',
-                                text: '<%= flash.success %>',
-                                type: 'success',
-                                layout: 'topRight',
-                                timeout: 1500
-                            }).show();
+                                new Noty({
+                                    theme: 'relax',
+                                    text: '<%= flash.success %>',
+                                    type: 'success',
+                                    layout: 'topRight',
+                                    timeout: 1500
+                                }).show();
                         
                         <%}%>
                             // for the error part
                         <% if (flash.error && flash.error.length > 0) {%>
-                            new Noty({
-                                theme: 'relax',
-                                text: '<%= flash.error %>',
-                                type: 'error',
-                                layout: 'topRight',
-                                timeout: 1500
-                            }).show();
+                                new Noty({
+                                    theme: 'relax',
+                                    text: '<%= flash.error %>',
+                                    type: 'error',
+                                    layout: 'topRight',
+                                    timeout: 1500
+                                }).show();
                         
                         <%}%>
 
-                    </script>
+                        </script>
+
 
 
 </body>

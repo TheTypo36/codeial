@@ -15,12 +15,12 @@ header {
   padding-right: 50px;
   position: fixed;
   box-shadow: 1px 5px 5px 1px lightgrey; }
+  header a {
+    color: white;
+    text-decoration: none;
+    font-size: large;
+    font-weight: bold; }
   header #links {
     list-style: none;
     display: flex;
     flex-direction: column; }
-    header #links a {
-      color: white;
-      text-decoration: none;
-      font-size: large;
-      font-weight: bold; }
