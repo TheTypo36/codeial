@@ -1,0 +1,35 @@
+#chat-box{
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    border: 1px solid gray;
+    height: 350px;
+    width: 300px;
+    padding: 5px;
+    box-shadow: 1px 1px 1px 1px lightgray;
+    #messageList{
+        list-style: none;
+        height: 70%;
+        overflow: auto;
+        .other-message{
+
+            text-align: left;
+       
+            span{
+                display: inline-block;
+                padding: 10px;
+                background-color: #ffa0a0;
+            }
+        }
+        .self-message{
+            text-align: right;
+            span{
+                display: inline-block;
+                padding: 10px;
+                background-color: lightblue;
+            }
+        }
+    }
+
+
+}

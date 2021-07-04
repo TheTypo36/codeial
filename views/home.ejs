@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/home.css">
-
+<link rel="stylesheet" type="text/css" href="/css/chatbox.css">
 
 <div id="home-container">
     <section id="groups-list" class="mt50x">
@@ -58,6 +58,7 @@
                 <%}%>
         </section>
     </aside>
+    <%- include('_chat_box.ejs') -%>
 </div>
 <script src="/js/home_posts.js" type="text/javascript">
 </script>
@@ -78,3 +79,13 @@
         let toggleFriendship = new ToggleFriendship(self);
     });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js">
+</script>
+<script src="/js/chat_engine.js">
+</script>
+<% if (locals.user) { %>
+    <script>
+
+        new ChatEngine('chat-box', '<%=locals.user.email%>');
+    </script>
+    <%}%>
