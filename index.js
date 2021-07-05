@@ -13,7 +13,7 @@ const passportGoogle = require('./config/passport-google-oauth2-strategy');
 const MongoStore = require('connect-mongo')(session);
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
-
+const path = require('path');
 //code for setup for socket.io
 const chatServer = require('http').Server(app);
 const chatSockets = require('./config/chat_sockets.js').chatSockets(chatServer);
@@ -22,20 +22,20 @@ console.log('socket.io is running on the port number 5000');
 
 
 const customMware = require('./config/middleware');
-
+const env = require('./config/environment.js');
 //const multer = require('multer');
 
 
 app.use(sassMiddleware({
-    src: './assets/scss',
-    dest: './assets/css',
+    src: path.join(__dirname, env.asset_path, 'scss'),
+    dest: path.join(__dirname, env.asset_path, 'css'),
     debug: true,
     outputStyle: 'extended',
     prefix: '/css'
 }));
 app.use(express.urlencoded()); ``
 app.use(cookieParser());
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(expressLayouts);
 //for replacing css and script where they belong in the page
@@ -53,7 +53,7 @@ app.set('views', './views');
 app.use(session({
     name: 'codeial',
     //TODO change the secret before deployment 
-    secret: 'blahsomething',
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {
